@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class PostsController extends Controller
 {
@@ -21,6 +22,11 @@ class PostsController extends Controller
         ]);
         
         $image_path = request('image')->store('uploads', 'public');
+        
+        $image = Image::make(public_path("storage/{$image_path}"))->fit(1200,1200, function($constraint) {
+            $constraint->upsize();
+        });
+        $image->save();
         
         auth()->user()->posts()->create([
             'caption' => $data['caption'],
