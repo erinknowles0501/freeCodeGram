@@ -14,28 +14,24 @@
             </div>
             
             <div class="d-flex">
-                <div class="pr-5"><strong>Fake</strong> posts</div>
+                <div class="pr-5"><strong>{{ $user->posts->count() }}</strong> posts</div>
                 <div class="pr-5"><strong>Fake</strong> followers</div>
                 <div class="pr-5"><strong>Fake</strong> following</div>
             </div>
             
-            <div class="pt-4 font-weight-bold">{{ $user->profile->title }}</div>
-            <div>{{ $user->profile->description }}</div>
-            <div><a href="#">{{ $user->profile->url }}</a></div>
+            <div class="pt-4 font-weight-bold">{{ $user->profile->title ?? '' }}</div>
+            <div>{{ $user->profile->description ?? ''}}</div>
+            <div><a href="#">{{ $user->profile->url ?? ''}}</a></div>
             
         </div>
     </div>
     
     <div class="row pt-4">
-        <div class="col-4">
-            <img src="https://placekitten.com/400/200" class="w-100 p-3">
+        @foreach ($user->posts as $post)
+        <div class="col-4 p-3">
+            <img src="/storage/{{ $post->image }}" class="w-100 p-3">
         </div>
-        <div class="col-4">
-            <img src="https://placekitten.com/500/600" class="w-100 p-3">
-        </div>
-        <div class="col-4">
-            <img src="https://placekitten.com/300/500" class="w-100 p-3">
-        </div>
+        @endforeach
     </div>
     
 </div>
