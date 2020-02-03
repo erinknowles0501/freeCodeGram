@@ -37,6 +37,14 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     
+    ///
+    /*
+        A so-called 'Eloquent model event' - there are several of them, called at various times during the User's lifecycle.
+        
+        This particular function is being called to give Users a profile right away, and give the Title field their username.
+    */
+    ///
+    
     protected static function boot() {
         parent::boot();
         
@@ -46,6 +54,15 @@ class User extends Authenticatable
             ]);
         });
     }
+    
+    ///
+    /*
+    Connect Post and Profile to User - note this also has a similar action in Post and Profile models for it to work. Looks like:
+    return $this->belongsTo(User::class);
+    
+    hasMany is so it expects multiple posts to be associated - hasOne is so it just expects one.
+    */
+    ///
     
     public function posts() {
         return $this->hasMany(Post::class)->orderBy('created_at', 'DESC');

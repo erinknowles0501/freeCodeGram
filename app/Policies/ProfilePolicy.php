@@ -53,6 +53,12 @@ class ProfilePolicy
      */
     public function update(User $user, Profile $profile)
     {
+        ///
+        /*
+        This function will allow User $user to update Profile $profile if it returns true, and false if it returns false.
+        Therefore we can just return whether the $user id is the same as the $profile's user_id and that'll take care of it for us.
+        */
+        ///
         return $user->id == $profile->user_id;
     }
 
